@@ -1,0 +1,422 @@
+﻿<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محاسبه مصالح ساختمانی | ویلا استار</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3498db;
+            --primary-dark: #2980b9;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --info: #1abc9c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Vazirmatn, 'B Nazanin';
+        }
+        
+        body {
+            background: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.8;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            text-align: center;
+            padding: 2.5rem 1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .calculator-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        input:focus, select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+        
+        .building-type {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .option-card {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #ddd;
+        }
+        
+        .option-card:hover, .option-card.selected {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .option-card i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            width: 100%;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .results {
+            margin-top: 2rem;
+        }
+        
+        .material-section {
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            background: linear-gradient(135deg, var(--secondary), var(--dark));
+            color: white;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .material-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .material-card {
+            background: white;
+            border-radius: 6px;
+            padding: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-right: 3px solid var(--primary);
+        }
+        
+        .material-name {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .material-value {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--secondary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin: 2rem auto;
+            transition: all 0.3s;
+        }
+        
+        .back-btn:hover {
+            background: var(--dark);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .building-type, .material-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>محاسبه مصالح ساختمانی</h1>
+        <p>محاسبه تمام مصالح مورد نیاز از فونداسیون تا نازک‌کاری</p>
+    </header>
+    
+    <main class="container">
+        <div class="calculator-card">
+            <div class="form-group">
+                <label>نوع ساختمان:</label>
+                <div class="building-type">
+                    <div class="option-card selected" data-type="residential">
+                        <i class="fas fa-home"></i>
+                        <div>مسکونی</div>
+                    </div>
+                    <div class="option-card" data-type="commercial">
+                        <i class="fas fa-building"></i>
+                        <div>اداری-تجاری</div>
+                    </div>
+                    <div class="option-card" data-type="villa">
+                        <i class="fas fa-house-user"></i>
+                        <div>ویلا</div>
+                    </div>
+                </div>
+                <input type="hidden" id="building-type" value="residential">
+            </div>
+            
+            <div class="form-group">
+                <label for="area">متراژ زیربنا (متر مربع):</label>
+                <input type="number" id="area" placeholder="مثال: 150">
+            </div>
+            
+            <div class="form-group">
+                <label for="floors">تعداد طبقات:</label>
+                <input type="number" id="floors" value="1" min="1">
+            </div>
+            
+            <div class="form-group">
+                <label for="structure">نوع سازه:</label>
+                <select id="structure">
+                    <option value="steel">اسکلت فلزی</option>
+                    <option value="concrete">اسکلت بتنی</option>
+                    <option value="mixed">تلفیقی (فلزی-بتنی)</option>
+                </select>
+            </div>
+            
+            <button id="calculate-btn">
+                <i class="fas fa-calculator"></i> محاسبه مصالح
+            </button>
+            
+            <div class="results" id="results">
+                <!-- نتایج اینجا نمایش داده می‌شود -->
+            </div>
+        </div>
+        
+        <div style="text-align: center;">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-right"></i> بازگشت به سایت
+            </a>
+        </div>
+    </main>
+
+    <script>
+        // انتخاب نوع ساختمان
+        document.querySelectorAll('.option-card').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.option-card').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                this.classList.add('selected');
+                document.getElementById('building-type').value = this.dataset.type;
+            });
+        });
+        
+        // محاسبه مصالح
+        document.getElementById('calculate-btn').addEventListener('click', function() {
+            const buildingType = document.getElementById('building-type').value;
+            const area = parseFloat(document.getElementById('area').value);
+            const floors = parseInt(document.getElementById('floors').value);
+            const structure = document.getElementById('structure').value;
+            
+            if (!area || area <= 0) {
+                alert('لطفا متراژ را به درستی وارد کنید');
+                return;
+            }
+            
+            // ضرایب محاسباتی
+            const coefficients = {
+                'residential': {
+                    'steel': { rebar: 40, beam: 25, concrete: 0.35 },
+                    'concrete': { rebar: 60, beam: 0, concrete: 0.45 },
+                    'mixed': { rebar: 50, beam: 15, concrete: 0.4 }
+                },
+                'commercial': {
+                    'steel': { rebar: 45, beam: 30, concrete: 0.3 },
+                    'concrete': { rebar: 70, beam: 0, concrete: 0.5 },
+                    'mixed': { rebar: 60, beam: 20, concrete: 0.45 }
+                },
+                'villa': {
+                    'steel': { rebar: 35, beam: 20, concrete: 0.3 },
+                    'concrete': { rebar: 50, beam: 0, concrete: 0.4 },
+                    'mixed': { rebar: 40, beam: 10, concrete: 0.35 }
+                }
+            };
+            
+            const coeff = coefficients[buildingType][structure];
+            const totalArea = area * floors;
+            
+            // محاسبات اصلی
+            const rebar = Math.round(totalArea * coeff.rebar);
+            const beam = structure === 'concrete' ? 0 : Math.round(totalArea * coeff.beam);
+            const concrete = (totalArea * coeff.concrete).toFixed(1);
+            const brick = Math.round(totalArea * 50);
+            const cement = Math.round(concrete * 350);
+            const sand = Math.round(concrete * 800);
+            const gravel = Math.round(concrete * 1200);
+            
+            // محاسبات مصالح جدید
+            const ceramic = Math.round(totalArea * 1.1); // سرامیک با 10% پرتی
+            const plaster = Math.round(totalArea * 4); // گچ
+            const isogam = Math.round(totalArea * 0.3); // ایزوگام
+            const wiring = Math.round(totalArea * (buildingType === 'villa' ? 1.5 : 2)); // سیم و کابل
+            
+            // نمایش نتایج
+            const resultsHTML = `
+                <div class="material-section">
+                    <div class="section-title">
+                        <i class="fas fa-cubes"></i>
+                        <h3>مصالح اصلی سازه</h3>
+                    </div>
+                    <div class="material-grid">
+                        <div class="material-card">
+                            <div class="material-name">میلگرد</div>
+                            <div class="material-value">${rebar.toLocaleString('fa-IR')} kg</div>
+                        </div>
+                        
+                        ${beam > 0 ? `
+                        <div class="material-card">
+                            <div class="material-name">تیرآهن</div>
+                            <div class="material-value">${beam.toLocaleString('fa-IR')} kg</div>
+                        </div>
+                        ` : ''}
+                        
+                        <div class="material-card">
+                            <div class="material-name">بتن</div>
+                            <div class="material-value">${concrete} m³</div>
+                        </div>
+                        
+                        <div class="material-card">
+                            <div class="material-name">آجر/بلوک</div>
+                            <div class="material-value">${brick.toLocaleString('fa-IR')} عدد</div>
+                        </div>
+                        
+                        <div class="material-card">
+                            <div class="material-name">سیمان</div>
+                            <div class="material-value">${cement.toLocaleString('fa-IR')} kg</div>
+                        </div>
+                        
+                        <div class="material-card">
+                            <div class="material-name">ماسه</div>
+                            <div class="material-value">${sand.toLocaleString('fa-IR')} kg</div>
+                        </div>
+                        
+                        <div class="material-card">
+                            <div class="material-name">شن</div>
+                            <div class="material-value">${gravel.toLocaleString('fa-IR')} kg</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="material-section">
+                    <div class="section-title" style="background: linear-gradient(135deg, var(--info), var(--success))">
+                        <i class="fas fa-trowel"></i>
+                        <h3>مصالح نازک‌کاری</h3>
+                    </div>
+                    <div class="material-grid">
+                        <div class="material-card">
+                            <div class="material-name">سرامیک کف</div>
+                            <div class="material-value">${ceramic.toLocaleString('fa-IR')} m²</div>
+                        </div>
+                        
+                        <div class="material-card">
+                            <div class="material-name">گچ</div>
+                            <div class="material-value">${plaster.toLocaleString('fa-IR')} kg</div>
+                        </div>
+                        
+                        <div class="material-card">
+                            <div class="material-name">ایزوگام</div>
+                            <div class="material-value">${isogam.toLocaleString('fa-IR')} m²</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="material-section">
+                    <div class="section-title" style="background: linear-gradient(135deg, var(--warning), var(--accent))">
+                        <i class="fas fa-bolt"></i>
+                        <h3>تاسیسات الکتریکی</h3>
+                    </div>
+                    <div class="material-grid">
+                        <div class="material-card">
+                            <div class="material-name">سیم و کابل</div>
+                            <div class="material-value">${wiring.toLocaleString('fa-IR')} m</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="color: var(--gray); font-size: 0.9rem; margin-top: 2rem; text-align: center;">
+                    <i class="fas fa-info-circle"></i> اعداد تقریبی بر اساس استانداردهای ساخت‌وساز محاسبه شده‌اند.
+                </div>
+            `;
+            
+            document.getElementById('results').innerHTML = resultsHTML;
+        });
+    </script>
+</body>
+</html>
