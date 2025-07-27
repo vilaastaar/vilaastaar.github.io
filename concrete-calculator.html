@@ -1,0 +1,457 @@
+﻿<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محاسبه گر بتن | ویلا استار</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3498db;
+            --primary-dark: #2980b9;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+            --white: #ffffff;
+            --warning: #f39c12;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Vazirmatn, 'B Nazanin';
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.8;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: var(--white);
+            text-align: center;
+            padding: 2.5rem 1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header p {
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .calculator-card {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 3rem;
+        }
+        
+        .tabs {
+            display: flex;
+            background: var(--light);
+        }
+        
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab.active {
+            background: var(--white);
+            border-bottom: 3px solid var(--primary);
+            font-weight: bold;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 2rem;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
+            background: var(--white);
+        }
+        
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .option {
+            background: #f0f0f0;
+            padding: 12px 8px;
+            text-align: center;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #ddd;
+        }
+        
+        .option:hover, .option.selected {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .calculate-btn {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 14px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .calculate-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .results {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+            border-right: 4px solid var(--primary);
+        }
+        
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px dashed var(--gray);
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed #eee;
+        }
+        
+        .result-item:last-child {
+            border-bottom: none;
+        }
+        
+        .material-name {
+            color: var(--gray);
+        }
+        
+        .material-value {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--secondary);
+            color: var(--white);
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            margin: 2rem auto;
+        }
+        
+        .back-btn:hover {
+            background: var(--dark);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .options-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>محاسبه گر بتن</h1>
+        <p>محاسبه مصالح مورد نیاز بر اساس مترمکعب یا ظرفیت بتونیِر</p>
+    </header>
+    
+    <main class="container">
+        <div class="calculator-card">
+            <div class="tabs">
+                <div class="tab active" data-tab="volume">بر اساس مترمکعب</div>
+                <div class="tab" data-tab="mixer">بر اساس بتونیِر</div>
+            </div>
+            
+            <!-- تب محاسبه بر اساس مترمکعب -->
+            <div id="volume" class="tab-content active">
+                <div class="form-group">
+                    <label for="volume-value">حجم بتن مورد نیاز (m³):</label>
+                    <input type="number" id="volume-value" class="form-control" value="1" min="0.1" step="0.1">
+                </div>
+                
+                <div class="form-group">
+                    <label>عیار سیمان (kg/m³):</label>
+                    <div class="options-grid" id="cement-options">
+                        <div class="option selected" data-value="200">200</div>
+                        <div class="option" data-value="250">250</div>
+                        <div class="option" data-value="300">300</div>
+                        <div class="option" data-value="350">350</div>
+                        <div class="option" data-value="400">400</div>
+                    </div>
+                    <input type="hidden" id="cement-value" value="200">
+                </div>
+                
+                <button class="calculate-btn" id="calculate-volume">
+                    <i class="fas fa-calculator"></i> محاسبه
+                </button>
+                
+                <div class="results">
+                    <div class="result-header">
+                        <h3>نتایج محاسبه</h3>
+                        <span id="volume-result-info">برای 1 m³ بتن</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="material-name">سیمان:</span>
+                        <span class="material-value" id="volume-cement">0 kg</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="material-name">ماسه:</span>
+                        <span class="material-value" id="volume-sand">0 kg</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="material-name">شن:</span>
+                        <span class="material-value" id="volume-gravel">0 kg</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="material-name">آب:</span>
+                        <span class="material-value" id="volume-water">0 L</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- تب محاسبه بر اساس بتونیِر -->
+            <div id="mixer" class="tab-content">
+                <div class="form-group">
+                    <label>ظرفیت بتونیِر:</label>
+                    <div class="options-grid">
+                        <div class="option selected" data-capacity="250">
+                            <i class="fas fa-blender" style="display: block; margin-bottom: 5px;"></i>
+                            250 لیتری
+                        </div>
+                    </div>
+                    <input type="hidden" id="mixer-capacity" value="250">
+                </div>
+                
+                <div class="form-group">
+                    <label>عیار سیمان (kg/m³):</label>
+                    <div class="options-grid" id="mixer-cement-options">
+                        <div class="option selected" data-value="200">200</div>
+                        <div class="option" data-value="250">250</div>
+                        <div class="option" data-value="300">300</div>
+                        <div class="option" data-value="350">350</div>
+                        <div class="option" data-value="400">400</div>
+                    </div>
+                    <input type="hidden" id="mixer-cement-value" value="200">
+                </div>
+                
+                <button class="calculate-btn" id="calculate-mixer">
+                    <i class="fas fa-calculator"></i> محاسبه
+                </button>
+                
+                <div class="results">
+                    <div class="result-header">
+                        <h3>نتایج محاسبه</h3>
+                        <span id="mixer-result-info">برای بتونیِر 250 لیتری</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="material-name">سیمان:</span>
+                        <span class="material-value" id="mixer-cement">0 kg</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="material-name">ماسه:</span>
+                        <span class="material-value" id="mixer-sand">0 kg</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="material-name">شن:</span>
+                        <span class="material-value" id="mixer-gravel">0 kg</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="material-name">آب:</span>
+                        <span class="material-value" id="mixer-water">0 L</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center;">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-right"></i> بازگشت به سایت اصلی
+            </a>
+        </div>
+    </main>
+
+    <script>
+        // سیستم تب‌ها
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                this.classList.add('active');
+                document.getElementById(this.dataset.tab).classList.add('active');
+            });
+        });
+        
+        // انتخاب عیار سیمان (مترمکعب)
+        document.querySelectorAll('#cement-options .option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('#cement-options .option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                this.classList.add('selected');
+                document.getElementById('cement-value').value = this.dataset.value;
+                calculateVolume();
+            });
+        });
+        
+        // انتخاب عیار سیمان (بتونیِر)
+        document.querySelectorAll('#mixer-cement-options .option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('#mixer-cement-options .option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                this.classList.add('selected');
+                document.getElementById('mixer-cement-value').value = this.dataset.value;
+                calculateMixer();
+            });
+        });
+        
+        // محاسبه بر اساس مترمکعب
+        function calculateVolume() {
+            const cement = parseInt(document.getElementById('cement-value').value);
+            const volume = parseFloat(document.getElementById('volume-value').value);
+            
+            // نسبت‌های استاندارد
+            const sandRatio = 2;
+            const gravelRatio = 3;
+            const waterRatio = 0.5;
+            
+            // محاسبات
+            const cementTotal = Math.ceil(cement * volume);
+            const sandTotal = Math.ceil(cementTotal * sandRatio);
+            const gravelTotal = Math.ceil(cementTotal * gravelRatio);
+            const waterTotal = Math.ceil(cementTotal * waterRatio);
+            
+            // نمایش نتایج
+            document.getElementById('volume-cement').textContent = `${cementTotal} kg`;
+            document.getElementById('volume-sand').textContent = `${sandTotal} kg`;
+            document.getElementById('volume-gravel').textContent = `${gravelTotal} kg`;
+            document.getElementById('volume-water').textContent = `${waterTotal} L`;
+            document.getElementById('volume-result-info').textContent = `برای ${volume} m³ بتن`;
+        }
+        
+        // محاسبه بر اساس بتونیِر
+        function calculateMixer() {
+            const cement = parseInt(document.getElementById('mixer-cement-value').value);
+            const capacity = parseInt(document.getElementById('mixer-capacity').value);
+            const volume = capacity / 1000; // تبدیل به مترمکعب
+            
+            // نسبت‌های استاندارد
+            const sandRatio = 2;
+            const gravelRatio = 3;
+            const waterRatio = 0.5;
+            
+            // محاسبات
+            const cementTotal = Math.ceil(cement * volume);
+            const sandTotal = Math.ceil(cementTotal * sandRatio);
+            const gravelTotal = Math.ceil(cementTotal * gravelRatio);
+            const waterTotal = Math.ceil(cementTotal * waterRatio);
+            
+            // نمایش نتایج
+            document.getElementById('mixer-cement').textContent = `${cementTotal} kg`;
+            document.getElementById('mixer-sand').textContent = `${sandTotal} kg`;
+            document.getElementById('mixer-gravel').textContent = `${gravelTotal} kg`;
+            document.getElementById('mixer-water').textContent = `${waterTotal} L`;
+            document.getElementById('mixer-result-info').textContent = `برای بتونیِر ${capacity} لیتری`;
+        }
+        
+        // رویدادهای کلیک
+        document.getElementById('calculate-volume').addEventListener('click', calculateVolume);
+        document.getElementById('calculate-mixer').addEventListener('click', calculateMixer);
+        
+        // محاسبه اولیه
+        calculateVolume();
+        calculateMixer();
+        
+        // تغییر حجم در مترمکعب
+        document.getElementById('volume-value').addEventListener('input', calculateVolume);
+    </script>
+</body>
+</html>
