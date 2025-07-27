@@ -1,0 +1,396 @@
+﻿<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محاسبه هوشمند هزینه ساخت | ویلا استار</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/fonts.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3498db;
+            --primary-dark: #2980b9;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+            --white: #ffffff;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Vazirmatn, 'B Nazanin', Tahoma;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.8;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: var(--white);
+            text-align: center;
+            padding: 2.5rem 1rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .calculator-card {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 3rem;
+        }
+
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        .input-section {
+            padding: 2.5rem;
+            background: var(--white);
+        }
+
+        .result-section {
+            padding: 2.5rem;
+            background: #f8fafc;
+            border-right: 1px solid #eee;
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.6rem;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: #f8f9fa;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
+            background: var(--white);
+        }
+
+        .calculate-btn {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 14px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .calculate-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .total-card {
+            background: linear-gradient(135deg, var(--success), #2ecc71);
+            color: var(--white);
+            padding: 1.8rem;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .total-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .total-price {
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .detail-card {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .detail-card h4 {
+            color: var(--secondary);
+            margin-bottom: 1.2rem;
+            font-size: 1.1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px dashed #eee;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed #f0f0f0;
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: var(--gray);
+        }
+
+        .detail-value {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--secondary);
+            color: var(--white);
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            margin: 2rem auto;
+        }
+
+        .back-btn:hover {
+            background: var(--dark);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .result-section {
+                border-right: none;
+                border-top: 1px solid #eee;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .total-price {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>محاسبه هوشمند هزینه ساخت</h1>
+        <p>ویلا استار | خانه ای به وسعت رویا</p>
+    </header>
+
+    <main class="container">
+        <div class="calculator-card">
+            <div class="calculator-grid">
+                <!-- ستون ورودی‌ها -->
+                <section class="input-section">
+                    <div class="form-group">
+                        <label for="building-type">نوع سازه:</label>
+                        <select id="building-type" class="form-control">
+                            <option value="villa">ویلا</option>
+                            <option value="apartment">آپارتمان</option>
+                            <option value="office">دفتر کار</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="area">متراژ (متر مربع):</label>
+                        <input type="number" id="area" class="form-control" min="50" max="10000" placeholder="مثال: 150">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="structure-type">نوع اسکلت:</label>
+                        <select id="structure-type" class="form-control">
+                            <option value="steel">اسکلت فلزی</option>
+                            <option value="concrete">اسکلت بتنی</option>
+                            <option value="traditional">ساختمان سنتی</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="quality">کیفیت مصالح:</label>
+                        <select id="quality" class="form-control">
+                            <option value="economy">اقتصادی (ساده)</option>
+                            <option value="standard">استاندارد</option>
+                            <option value="luxury">لوکس (مدرن)</option>
+                            <option value="super-luxury">سوپر لوکس</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="location">منطقه ساخت:</label>
+                        <select id="location" class="form-control">
+                            <option value="north">شمال کشور (مازندران، گیلان)</option>
+                            <option value="tehran">تهران و حومه</option>
+                            <option value="other">سایر شهرها</option>
+                        </select>
+                    </div>
+                    
+                    <button id="calculate-btn" class="calculate-btn">
+                        <i class="fas fa-calculator"></i> محاسبه هزینه
+                    </button>
+                </section>
+                
+                <!-- ستون نتایج -->
+                <section class="result-section">
+                    <div class="total-card">
+                        <h3>هزینه کل ساخت</h3>
+                        <div class="total-price" id="total-cost">۰</div>
+                        <div>تومان</div>
+                    </div>
+                    
+                    <div class="detail-card">
+                        <h4>جزئیات هزینه:</h4>
+                        <div class="detail-item">
+                            <span class="detail-label">اسکلت:</span>
+                            <span class="detail-value" id="structure-cost">۰</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">نازک‌کاری:</span>
+                            <span class="detail-value" id="finishing-cost">۰</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">تاسیسات:</span>
+                            <span class="detail-value" id="facilities-cost">۰</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">طراحی و نظارت:</span>
+                            <span class="detail-value" id="design-cost">۰</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        
+        <div style="text-align: center;">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-right"></i> بازگشت به سایت اصلی
+            </a>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('calculate-btn').addEventListener('click', function() {
+            // دریافت مقادیر ورودی
+            const buildingType = document.getElementById('building-type').value;
+            const area = parseFloat(document.getElementById('area').value) || 0;
+            const structureType = document.getElementById('structure-type').value;
+            const quality = document.getElementById('quality').value;
+            const location = document.getElementById('location').value;
+            
+            // قیمت پایه هر متر مربع (تومان)
+            const basePrices = {
+                'economy': 5000000,
+                'standard': 8000000,
+                'luxury': 12000000,
+                'super-luxury': 18000000
+            };
+            
+            // ضرایب محاسباتی
+            const buildingFactors = {
+                'villa': 1.2,
+                'apartment': 1.0,
+                'office': 1.1
+            };
+            
+            const structureFactors = {
+                'steel': 1.0,
+                'concrete': 1.05,
+                'traditional': 0.9
+            };
+            
+            const locationFactors = {
+                'north': 1.3,
+                'tehran': 1.4,
+                'other': 1.0
+            };
+            
+            // محاسبه قیمت کل
+            const basePrice = basePrices[quality];
+            const totalPrice = area * basePrice * 
+                              buildingFactors[buildingType] * 
+                              structureFactors[structureType] * 
+                              locationFactors[location];
+            
+            // محاسبه جزئیات
+            const structureCost = area * (basePrice * 0.4);
+            const finishingCost = area * (basePrice * 0.35);
+            const facilitiesCost = area * (basePrice * 0.15);
+            const designCost = area * (basePrice * 0.1);
+            
+            // نمایش نتایج با اعداد فارسی
+            document.getElementById('total-cost').textContent = 
+                Math.round(totalPrice).toLocaleString('fa-IR');
+                
+            document.getElementById('structure-cost').textContent = 
+                Math.round(structureCost).toLocaleString('fa-IR') + " تومان";
+                
+            document.getElementById('finishing-cost').textContent = 
+                Math.round(finishingCost).toLocaleString('fa-IR') + " تومان";
+                
+            document.getElementById('facilities-cost').textContent = 
+                Math.round(facilitiesCost).toLocaleString('fa-IR') + " تومان";
+                
+            document.getElementById('design-cost').textContent = 
+                Math.round(designCost).toLocaleString('fa-IR') + " تومان";
+        });
+    </script>
+</body>
+</html>
