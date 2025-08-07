@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>محاسبه مشارکت و سود پروژه</title>
+  <style>
+    body {
+      font-family: 'Tahoma', sans-serif;
+      background-color: #f0f2f5;
+      direction: rtl;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    .result {
+      margin-top: 20px;
+      background-color: #e9ecef;
+      padding: 15px;
+      border-radius: 5px;
+      line-height: 1.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>محاسبه مشارکت و سود پروژه</h2>
+
+    <label for="landValue">💰 قیمت زمین (تومان):</label>
+    <input type="number" id="landValue">
+
+    <label for="constructionCost">🔨 هزینه ساخت (تومان):</label>
+    <input type="number" id="constructionCost">
+
+    <label for="salePrice">🏢 قیمت فروش نهایی پروژه (تومان):</label>
+    <input type="number" id="salePrice">
+
+    <button onclick="calculate()">محاسبه</button>
+
+    <div class="result" id="output"></div>
+  </div>
+
+  <script>
+    function formatNumber(num) {
+      return num.toLocaleString('fa-IR');
+    }
+
+    function calculate() {
+      const landValue = parseFloat(document.getElementById('landValue').value);
+      const constructionCost = parseFloat(document.getElementById('constructionCost').value);
+      const salePrice = parseFloat(document.getElementById('salePrice').value);
+
+      if (isNaN(landValue) || isNaN(constructionCost) || isNaN(salePrice)) {
+        document.getElementById('output').innerText = "لطفاً تمام مقادیر را به‌درستی وارد کنید.";
+        return;
+      }
+
+      const totalInvestment = landValue + constructionCost;
+      const ownerSharePercent = (landValue / totalInvestment) * 100;
+      const builderSharePercent = 100 - ownerSharePercent;
+
+      const profit = salePrice - totalInvestment;
+      const profitPercent = (profit / totalInvestment) * 100;
+
+      document.getElementById('output').innerHTML = `
+        ✅ <strong>نتایج محاسبه:</strong><br>
+        قیمت زمین: <strong>${formatNumber(landValue)} تومان</strong><br>
+        هزینه ساخت: <strong>${formatNumber(constructionCost)} تومان</strong><br>
+        مجموع سرمایه‌گذاری: <strong>${formatNumber(totalInvestment)} تومان</strong><br>
+        قیمت فروش نهایی: <strong>${formatNumber(salePrice)} تومان</strong><br><br>
+
+        📊 <strong>درصد مشارکت:</strong><br>
+        مالک: <strong>${ownerSharePercent.toFixed(2)}%</strong><br>
+        سازنده: <strong>${builderSharePercent.toFixed(2)}%</strong><br><br>
+
+        💹 <strong>سود سازنده:</strong><br>
+        سود خالص: <strong>${formatNumber(profit)} تومان</strong><br>
+        درصد سود نسبت به کل سرمایه‌گذاری: <strong>${profitPercent.toFixed(2)}%</strong>
+      `;
+    }
+  </script>
+</body>
+</html>
