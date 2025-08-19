@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ویلا استار | طرح‌های اولیه ویلا | مهندس صادقی</title>
+    <meta name="description" content="انواع طرح‌های اولیه ویلا - مدرن، کلاسیک، جنگلی، ساحلی و کوهستانی">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --white: #fff;
+            --gray: #95a5a6;
+            --dark-green: #1a3e2e;
+            --transition: all 0.3s ease
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: var(--white);
+            text-align: center;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .vilaastaar-logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .vila {
+            color: var(--white);
+        }
+
+        .astaar {
+            color: var(--light);
+        }
+
+        .logo-slogan {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.9);
+            margin-top: -10px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: "";
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: var(--primary);
+            margin: 0.5rem auto 0;
+        }
+
+        .villa-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 3rem 0;
+        }
+
+        .villa-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .villa-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .villa-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .villa-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .villa-card:hover .villa-image img {
+            transform: scale(1.1);
+        }
+
+        .villa-details {
+            padding: 1.5rem;
+        }
+
+        .villa-title {
+            font-size: 1.3rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .villa-description {
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            line-height: 1.8;
+        }
+
+        .villa-features {
+            margin-bottom: 1.5rem;
+        }
+
+        .villa-features li {
+            margin-bottom: 0.5rem;
+            list-style-type: none;
+            position: relative;
+            padding-right: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .villa-features li:before {
+            content: "✓";
+            color: var(--primary);
+            position: absolute;
+            right: 0;
+        }
+
+        .selection-btn {
+            display: block;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            transition: var(--transition);
+            font-weight: 500;
+            margin-top: 1rem;
+            cursor: pointer;
+        }
+
+        .selection-btn:hover {
+            background: var(--secondary);
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .whatsapp-float:hover {
+            background: #128C7E;
+            transform: scale(1.1);
+        }
+
+        footer {
+            background: var(--secondary);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        a, button {
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .villa-types {
+                grid-template-columns: 1fr;
+            }
+            
+            .vilaastaar-logo {
+                font-size: 2.5rem;
+            }
+            
+            .villa-image {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div class="vilaastaar-logo">
+                    <span class="vila">Vila</span><span class="astaar">astaar</span>
+                    <p class="logo-slogan">طرح‌های اختصاصی ویلا</p>
+                </div>
+                <div style="color: white; text-align: left; margin-right: 20px;">
+                    <div style="font-size: 1.3rem; font-weight: bold; margin-bottom: 5px;">طراحی حرفه‌ای ویلا</div>
+                    <div style="font-size: 1.1rem; margin-bottom: 5px;">بر اساس سلیقه و نیاز شما</div>
+                    <div style="font-size: 1rem;">شماره تماس: 09122234298</div>
+                    <div style="font-size: 1rem;">مهندس صادقی</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section>
+            <h2 class="section-title">انواع طرح‌های اولیه ویلا</h2>
+            <p style="text-align: center; margin-bottom: 2rem; color: var(--dark);">
+                می‌توانید از بین طرح‌های زیر انتخاب کنید یا طرح اختصاصی خود را سفارش دهید
+            </p>
+            
+            <div class="villa-types">
+                <!-- ویلا مدرن -->
+                <div class="villa-card">
+                    <div class="villa-image">
+                        <img src="images/modern-villa.jpg" alt="ویلا مدرن">
+                    </div>
+                    <div class="villa-details">
+                        <h3 class="villa-title">ویلا مدرن</h3>
+                        <p class="villa-description">
+                            طراحی مدرن با خطوط صاف و ساده، استفاده از شیشه و فلز، فضای باز و روشن. مناسب برای کسانی که به دنبال طراحی معاصر و مینیمال هستند.
+                        </p>
+                        <ul class="villa-features">
+                            <li>طراحی مینیمال و مدرن</li>
+                            <li>پنجره‌های بزرگ و نورگیر</li>
+                            <li>استفاده از مصالح مدرن</li>
+                            <li>فضای باز گسترده</li>
+                            <li>رنگ‌های خنثی و سرد</li>
+                        </ul>
+                        <a href="https://wa.me/989122234298?text=سلام، من به طرح ویلا مدرن علاقه‌مندم" class="selection-btn" target="_blank">
+                            <i class="fas fa-pencil-ruler"></i> انتخاب این طرح
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- ویلا کلاسیک -->
+                <div class="villa-card">
+                    <div class="villa-image">
+                        <img src="images/classic-villa.jpg" alt="ویلا کلاسیک">
+                    </div>
+                    <div class="villa-details">
+                        <h3 class="villa-title">ویلا کلاسیک</h3>
+                        <p class="villa-description">
+                            طراحی الهام گرفته از معماری کلاسیک اروپایی با جزئیات ظریف، ستون‌های تزئینی و سقف‌های شیبدار. مناسب برای علاقه‌مندان به طراحی سنتی و لوکس.
+                        </p>
+                        <ul class="villa-features">
+                            <li>طراحی سنتی و کلاسیک</li>
+                            <li>جزئیات تزئینی ظریف</li>
+                            <li>استفاده از سنگ و چوب طبیعی</li>
+                            <li>سقف‌های شیبدار</li>
+                            <li>رنگ‌های گرم و طبیعی</li>
+                        </ul>
+                        <a href="https://wa.me/989122234298?text=سلام، من به طرح ویلا کلاسیک علاقه‌مندم" class="selection-btn" target="_blank">
+                            <i class="fas fa-pencil-ruler"></i> انتخاب این طرح
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- ویلا جنگلی -->
+                <div class="villa-card">
+                    <div class="villa-image">
+                        <img src="images/forest-villa.jpg" alt="ویلا جنگلی">
+                    </div>
+                    <div class="villa-details">
+                        <h3 class="villa-title">ویلا جنگلی</h3>
+                        <p class="villa-description">
+                            طراحی هماهنگ با طبیعت، استفاده از چوب و سنگ طبیعی، پنجره‌های بزرگ برای دید به جنگل. مناسب برای مناطق جنگلی و کوهپایه‌ای.
+                        </p>
+                        <ul class="villa-features">
+                            <li>هماهنگی کامل با طبیعت</li>
+                            <li>استفاده از چوب و سنگ طبیعی</li>
+                            <li>تراس‌های بزرگ رو به جنگل</li>
+                            <li>سیستم گرمایش شومینه</li>
+                            <li>رنگ‌های طبیعی و زمینی</li>
+                        </ul>
+                        <a href="https://wa.me/989122234298?text=سلام، من به طرح ویلا جنگلی علاقه‌مندم" class="selection-btn" target="_blank">
+                            <i class="fas fa-pencil-ruler"></i> انتخاب این طرح
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- ویلا ساحلی -->
+                <div class="villa-card">
+                    <div class="villa-image">
+                        <img src="images/beach-villa.jpg" alt="ویلا ساحلی">
+                    </div>
+                    <div class="villa-details">
+                        <h3 class="villa-title">ویلا ساحلی</h3>
+                        <p class="villa-description">
+                            طراحی مناسب برای مناطق ساحلی با مقاومت در برابر رطوبت، فضای باز گسترده و دسترسی مستقیم به ساحل. مناسب برای مناطق شمالی کشور.
+                        </p>
+                        <ul class="villa-features">
+                            <li>مقاوم در برابر رطوبت دریا</li>
+                            <li>تراس‌های بزرگ رو به دریا</li>
+                            <li>استخر خصوصی</li>
+                            <li>طراحی باز و روشن</li>
+                            <li>رنگ‌های آبی و سفید</li>
+                        </ul>
+                        <a href="https://wa.me/989122234298?text=سلام، من به طرح ویلا ساحلی علاقه‌مندم" class="selection-btn" target="_blank">
+                            <i class="fas fa-pencil-ruler"></i> انتخاب این طرح
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- ویلا کوهستانی -->
+                <div class="villa-card">
+                    <div class="villa-image">
+                        <img src="images/mountain-villa.jpg" alt="ویلا کوهستانی">
+                    </div>
+                    <div class="villa-details">
+                        <h3 class="villa-title">ویلا کوهستانی</h3>
+                        <p class="villa-description">
+                            طراحی مناسب برای مناطق سردسیر با عایق‌بندی حرفه‌ای، سیستم گرمایشی قوی و پنجره‌های دوجداره. مناسب برای مناطق کوهستانی.
+                        </p>
+                        <ul class="villa-features">
+                            <li>عایق‌بندی حرفه‌ای</li>
+                            <li>سیستم گرمایشی پیشرفته</li>
+                            <li>پنجره‌های دوجداره</li>
+                            <li>سقف شیبدار ضد برف</li>
+                            <li>رنگ‌های گرم و تیره</li>
+                        </ul>
+                        <a href="https://wa.me/989122234298?text=سلام، من به طرح ویلا کوهستانی علاقه‌مندم" class="selection-btn" target="_blank">
+                            <i class="fas fa-pencil-ruler"></i> انتخاب این طرح
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- ویلا سفارشی -->
+                <div class="villa-card">
+                    <div class="villa-image">
+                        <img src="images/custom-villa.jpg" alt="ویلا سفارشی">
+                    </div>
+                    <div class="villa-details">
+                        <h3 class="villa-title">ویلا سفارشی</h3>
+                        <p class="villa-description">
+                            طراحی کاملاً اختصاصی بر اساس سلیقه و نیاز شما. تیم طراحی ما پس از شنیدن نیازهای شما، طرحی منحصر به فرد ارائه خواهد داد.
+                        </p>
+                        <ul class="villa-features">
+                            <li>طراحی 100% اختصاصی</li>
+                            <li>مشاوره رایگان با مهندسین</li>
+                            <li>انعطاف‌پذیری کامل در طراحی</li>
+                            <li>استفاده از مصالح انتخابی شما</li>
+                            <li>هماهنگی با محیط پروژه</li>
+                        </ul>
+                        <a href="https://wa.me/989122234298?text=سلام، می‌خواهم یک ویلا سفارشی طراحی کنم" class="selection-btn" target="_blank">
+                            <i class="fas fa-pencil-ruler"></i> درخواست طراحی سفارشی
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section style="background: #f5f9fc; padding: 3rem; border-radius: 10px; margin: 3rem 0;">
+            <h2 class="section-title">نحوه انتخاب طرح مناسب</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <h3 style="color: var(--secondary); margin-bottom: 1rem; text-align: center;">1. موقعیت جغرافیایی</h3>
+                    <p style="color: var(--dark); text-align: justify;">
+                        اولین عامل در انتخاب طرح ویلا، موقعیت جغرافیایی زمین شماست. برای مناطق ساحلی طرح‌های مقاوم در برابر رطوبت، برای مناطق کوهستانی طرح‌های عایق‌بندی شده و برای مناطق جنگلی طرح‌های هماهنگ با طبیعت مناسب‌تر هستند.
+                    </p>
+                </div>
+                <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <h3 style="color: var(--secondary); margin-bottom: 1rem; text-align: center;">2. سلیقه شخصی</h3>
+                    <p style="color: var(--dark); text-align: justify;">
+                        سلیقه شخصی شما مهمترین عامل است. آیا به طراحی مدرن علاقه دارید یا کلاسیک؟ فضای باز را ترجیح می‌دهید یا فضای دنج و خصوصی؟ این موارد به انتخاب طرح مناسب کمک می‌کند.
+                    </p>
+                </div>
+                <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <h3 style="color: var(--secondary); margin-bottom: 1rem; text-align: center;">3. بودجه</h3>
+                    <p style="color: var(--dark); text-align: justify;">
+                        هر طرحی هزینه اجرای متفاوتی دارد. طرح‌های کلاسیک معمولاً هزینه بیشتری نسبت به طرح‌های مدرن دارند. همچنین استفاده از مصالح خاص می‌تواند در هزینه نهایی تأثیر بگذارد.
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="https://wa.me/989122234298" class="selection-btn" style="display: inline-block; width: auto; padding: 0.8rem 2rem;" target="_blank">
+                <i class="fab fa-whatsapp"></i> مشاوره رایگان با مهندس صادقی
+            </a>
+            <p style="margin-top: 1rem;">شماره تماس: 09122234298</p>
+        </div>
+    </main>
+
+    <!-- دکمه شناور واتساپ -->
+    <a href="https://wa.me/989122234298" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <footer>
+        <div class="container">
+            <div style="margin-bottom: 1.5rem;">
+                <a href="#" style="color: white; margin: 0 10px; font-size: 1.3rem;"><i class="fab fa-instagram"></i></a>
+                <a href="#" style="color: white; margin: 0 10px; font-size: 1.3rem;"><i class="fab fa-telegram"></i></a>
+                <a href="https://wa.me/989122234298" style="color: white; margin: 0 10px; font-size: 1.3rem;"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <p>© تمام حقوق محفوظ است - ۱۴۰۲</p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem;">ویلا استار | خانه ای به وسعت رویا</p>
+        </div>
+    </footer>
+</body>
+</html>
