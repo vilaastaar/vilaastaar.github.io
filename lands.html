@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشاوره انتخاب زمین | ویلا استار</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f9fc;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: #333;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            border-radius: 0 0 10px 10px;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .lands-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 2rem 0;
+        }
+        .land-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        .land-image {
+            height: 180px;
+            overflow: hidden;
+        }
+        .land-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .land-details {
+            padding: 1rem;
+        }
+        .land-title {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        .land-price {
+            color: #e74c3c;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+        .contact-btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            margin-top: 0.5rem;
+        }
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>مشاوره تخصصی انتخاب زمین</h1>
+            <p>زمین‌های موجود برای فروش در شمال کشور</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="lands-container" id="lands-list">
+            <!-- محتوا با جاوااسکریپت پر می‌شود -->
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>تماس: 09122234298 | مهندس صادقی</p>
+            <p>© ویلا استار 1403</p>
+        </div>
+    </footer>
+
+    <script>
+        // داده‌های زمین‌ها
+        const landsData = [
+            {
+                id: 1,
+                title: "زمین ویو عالی",
+                image: "imageslands/land1.jpg",
+                area: "350 متر",
+                price: "5,000,000,000 تومان",
+                location: "نشتارود، کمیلیه"
+            },
+            {
+                id: 2,
+                title: "زمین ویو جنگل و دریا",
+                image: "imageslands/land2.jpg",
+                area: "346 متر",
+                price: "4,800,000,000 تومان",
+                location: "نشتارود، کمیلیه"
+            },
+            {
+                id: 3,
+                title: "زمین شهرکی",
+                image: "imageslands/land3.jpg",
+                area: "250 متر",
+                price: "2,800,000,000 تومان",
+                location: "نشتارود، کمیلیه"
+            },
+            {
+                id: 4,
+                title: "زمین شهرکی",
+                image: "imageslands/land4.jpg",
+                area: "350 متر",
+                price: "6,000,000,000 تومان",
+                location: "نشتارود، کمیلیه"
+            },
+            {
+                id: 5,
+                title: "اپارتمان ساحلی",
+                image: "imageslands/land5.jpg",
+                area: "130 متر",
+                price: "6,500,000,000 تومان",
+                location: "تنکابن، ولی اباد"
+            },
+            {
+                id: 6,
+                title: "زمین ساحلی در محمودآباد",
+                image: "imageslands/land6.jpg",
+                area: "800 متر",
+                price: "12,000,000,000 تومان",
+                location: "محمودآباد، خط اول ساحلی"
+            }
+        ];
+
+        // نمایش زمین‌ها
+        function showLands() {
+            const container = document.getElementById('lands-list');
+            
+            landsData.forEach(land => {
+                container.innerHTML += `
+                    <div class="land-card">
+                        <div class="land-image">
+                            <img src="${land.image}" alt="${land.title}">
+                        </div>
+                        <div class="land-details">
+                            <h3 class="land-title">${land.title}</h3>
+                            <p>موقعیت: ${land.location}</p>
+                            <p>مساحت: ${land.area}</p>
+                            <p class="land-price">${land.price}</p>
+                            <a href="tel:09122234298" class="contact-btn">تماس فوری</a>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // اجرا پس از لود صفحه
+        window.onload = showLands;
+    </script>
+</body>
+</html>
